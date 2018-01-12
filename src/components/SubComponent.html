@@ -1,0 +1,10 @@
+<div>
+  <h2>{{ name }}</h2>
+  <h3>{{ foo }}</h3>
+  <button ng-click="loadData()">Load Something</button>
+  <ul ng-show="list && list.length">
+    <li ng-repeat="item in sub.list">
+      {{ item.name }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AngularJS Webpack Test</title>
+</head>
+<body>
+  <div id="app-root" ng-app="${ require('../config.json').APP_NAME }">
+    <header>
+      <nav>
+        <a ui-sref="MyComponent">MyComponent</a>
+        <a ui-sref="MyComponent.SubComponent">SubComponent</a>
+        <a ui-sref="MyComponent.LazyLoad">SubComponent LazyLoad</a>
+      </nav>
+    </header>
+    <section ui-view></section>
+    <footer>
+      Some Footer Els
+    </footer>
+  </div>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.3/angular-ui-router.min.js"></script>
+</body>
+</html>

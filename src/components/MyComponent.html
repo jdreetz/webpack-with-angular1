@@ -1,0 +1,9 @@
+<div>
+  <h1>Hello {{ vm.name }}</h1>
+  <ul ng-show="vm.list && vm.list.length">
+    <li ng-repeat="item in vm.list">
+      {{ item.name }}
+    </li>
+  </ul>
+  <section ui-view></section>
+</div>
