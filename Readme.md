@@ -4,3 +4,7 @@ This is a proof of concept project to explore and demonstrate usage of AngularJS
 # Features
 * Lazy loading UI-Router routes using `import()`
 * Exposes `factory`s and `service`s through ES6 export mechanisms while still retaining AngularJS DI. Uses ES6 `Proxy`s.
+
+# Usage
+* `npm install`
+* `npm run dev`
