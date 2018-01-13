@@ -4,12 +4,12 @@
   <title>AngularJS Webpack Test</title>
 </head>
 <body>
-  <div id="app-root" ng-app="${ require('../config.json').APP_NAME }">
+  <div id="app-root">
     <header>
       <nav>
         <a ui-sref="MyComponent">MyComponent</a>
         <a ui-sref="MyComponent.SubComponent">SubComponent</a>
-        <a ui-sref="MyComponent.LazyLoad">SubComponent LazyLoad</a>
+        <!-- <a ui-sref="MyComponent.LazyLoad">SubComponent LazyLoad</a> -->
       </nav>
     </header>
     <section ui-view></section>

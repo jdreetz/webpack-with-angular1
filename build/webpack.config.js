@@ -35,6 +35,9 @@ var config = {
     extensions: ['.js', '.jsx']
   },
   devtool: 'source-map',
+  node: {
+    __filename: true
+  }
 }
 
 module.exports = config;

@@ -1,8 +1,8 @@
 <div>
-  <h2>{{ name }}</h2>
-  <h3>{{ foo }}</h3>
-  <button ng-click="loadData()">Load Something</button>
-  <ul ng-show="list && list.length">
+  <h2>{{ sub.name }}</h2>
+  <h3>{{ sub.foo }}</h3>
+  <button ng-click="sub.loadData()">Load Something</button>
+  <ul ng-show="sub.list && sub.list.length">
     <li ng-repeat="item in sub.list">
       {{ item.name }}
     </li>
