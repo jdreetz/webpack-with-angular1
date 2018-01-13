@@ -1,6 +1,7 @@
 var path = require('path'),
     APP_NAME = require(path.resolve(__dirname, '../config.json')).APP_NAME,
     ngAnnotatePlugin = require('ng-annotate-webpack-plugin'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin')
     HTMLWebpackPlugin = require('html-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -20,16 +21,23 @@ var config = {
       {
         test: /\.(xml|html)$/,
         use: 'raw-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: 'css-loader'
+        })
       }
     ]
   },
   plugins: [
     new HTMLWebpackPlugin({ 
-      inject: 'head',
+      inject: 'body',
       filename: '../dist/index.html',
       template: '!!html-loader?interpolate!./src/index.html'
     }),
-    new CleanWebpackPlugin(['../dist'])
+    new CleanWebpackPlugin(['../dist']),
+    new ExtractTextPlugin('styles.css'),
   ],
   resolve: {
     extensions: ['.js', '.jsx']

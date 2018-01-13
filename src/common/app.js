@@ -1,48 +1,55 @@
 import { APP_NAME } from '../../config.json';
-import { injectExporter, accessTypes, getProvide } from '../lib/angular';
+import ModuleHelper from '../lib/ModuleHelper';
 import uirouter from '@uirouter/angularjs';
 import angular from 'angular';
 
-class App {
+class App extends ModuleHelper {
   constructor() {
+    super();
     this.configured = false;
     this.name = APP_NAME;
-    this.module = angular.module(APP_NAME, [uirouter]);
+    this.angularModule = angular.module(APP_NAME, [uirouter]);
+    this.exposeComputedProperties(this);
   }
 
-  controller(...args) {
-    this.module.controller(...args);
-    return this;
-  }
+  run(...args)        { return this.passthru('run', ...args)        }
+  config(...args)     { return this.passthru('config', ...args)     }
+  provider(...args)   { return this.passthru('provider', ...args)   }
+  directive(...args)  { return this.passthru('directive', ...args)  }
+  controller(...args) { return this.passthru('controller', ...args) }
 
   factory(name, implementation) {
-    if(!this.configured) {
-      this.module.factory(name, implementation);
-    } else {
-      getProvide().factory(name, implementation);
-    }
-    
-    return injectExporter(name, accessTypes.OBJ);
+    return this.exportPassThru('factory', name, implementation);
   }
 
-  config(...args) {
-    this.module.config(...args);
+  service(name, implementation) {
+    return this.exportPassThru('service', name, implementation);
+  }
+
+  passthru(service, ...args) {
+    this.module[service](...args);
     return this;
   }
 
-  directive(...args) {
-    this.module.directive(...args);
-    return this;
+  exportPassThru(service, ...args) {
+    this.passthru(service, ...args);
+    return this.export(...args);
   }
 
-  provider(name, implementation) {
-    this.module.provider(name, implementation);
-    return this;
-  }
+  exposeComputedProperties(instance) {
+    const module = {
+      get() {
+        if(!instance.configured) {
+          return instance.angularModule;
+        } else if(instance.provide) {
+          return instance.provide;
+        } else {
+          throw 'module or provide not available';
+        }
+      }
+    };
 
-  run(...args) {
-    this.module.run(...args);
-    return this;
+    Object.defineProperties(instance, { module });
   }
 }
 

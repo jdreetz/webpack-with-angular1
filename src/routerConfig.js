@@ -1,5 +1,4 @@
 import app from './common/app';
-import LazyLoader from './components/LazyLoader';
 
 class RouterConfigProvider {
   constructor($stateProvider) {
@@ -23,7 +22,7 @@ class RouterConfigProvider {
     return this;
   }
 
-  $get($stateProvider) { return {} }
+  $get() { return {} }
 }
 
 app.provider('routerConfig', RouterConfigProvider);

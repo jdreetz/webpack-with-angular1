@@ -1,29 +1,24 @@
-import app from './common/app';
 import angular from 'angular';
-import { setInjector, setProvide } from './lib/angular';
 
-import LazyLoader from './components/LazyLoader';
+import app from './common/app';
 import * as MyComponent from './components/MyComponent';
-
+import './appearance/index.css';
 import './routerConfig';
 
-setTimeout(() => {
-  app
-    .config(($provide, routerConfigProvider) => {
-      setProvide($provide);
+app
+  .config(($provide, routerConfigProvider) => {
+    app.provide = $provide;
 
-      routerConfigProvider
-        .state('MyComponent', MyComponent.routeConfig)
-        .lazyState('MyComponent.SubComponent', {
-          module: () => import('./components/SubComponent'),
-          url: '/SubComponent',
-          controllerAs: 'sub'
-        });
-    })
-    .run((...args) => {
-      app.configured = true;
-    });
+    routerConfigProvider
+      .state('MyComponent', MyComponent.routeConfig)
+      .lazyState('MyComponent.SubComponent', {
+        module: () => import('./components/SubComponent'),
+        url: '/SubComponent',
+        controllerAs: 'sub'
+      });
+  })
+  .run((...args) => {
+    app.configured = true;
+  });
 
-  const injector = angular.bootstrap(document.getElementById('app-root'), [app.name]);
-  setInjector(injector);
-}, 0);
+app.injector = angular.bootstrap(document.getElementById('app-root'), [app.name]);
