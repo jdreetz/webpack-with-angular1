@@ -2,7 +2,7 @@ import template from './MyComponent.html';
 
 export const MyComponent = class {
   constructor($q) {
-    this.name = 'Component';
+    this.name = 'MyComponent';
   }
 }
 

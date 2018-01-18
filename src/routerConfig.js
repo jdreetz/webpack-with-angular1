@@ -2,15 +2,18 @@ import app from './common/app';
 
 class RouterConfigProvider {
   constructor($stateProvider) {
+    this.registeredRoutes = [];
     this.$stateProvider = $stateProvider;
   }
 
-  state(...args) {
-    this.$stateProvider.state(...args);
+  state(routeName, ...args) {
+    this.registeredRoutes.push(routeName);
+    this.$stateProvider.state(routeName, ...args);
     return this;
   }
 
   lazyState(routeName, { url, module, controllerAs }) {
+    this.registeredRoutes.push(routeName);
     this.$stateProvider.state(routeName, {
       url,
       controllerAs,
@@ -22,7 +25,11 @@ class RouterConfigProvider {
     return this;
   }
 
-  $get() { return {} }
+  $get() { 
+    return {
+      registeredRoutes: this.registeredRoutes
+    } 
+  }
 }
 
 app.provider('routerConfig', RouterConfigProvider);

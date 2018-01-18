@@ -14,6 +14,7 @@ class App extends ModuleHelper {
 
   run(...args)        { return this.passthru('run', ...args)        }
   config(...args)     { return this.passthru('config', ...args)     }
+  filter(...args)     { return this.passthru('filter', ...args)     }
   provider(...args)   { return this.passthru('provider', ...args)   }
   directive(...args)  { return this.passthru('directive', ...args)  }
   controller(...args) { return this.passthru('controller', ...args) }
